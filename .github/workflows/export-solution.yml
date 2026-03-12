@@ -21,7 +21,7 @@ jobs:
           app-id: ${{ secrets.PP_CLIENT_ID }}
           client-secret: ${{ secrets.PP_CLIENT_SECRET }}
           tenant-id: ${{ secrets.PP_TENANT_ID }}
-          solution-name: 'MyTestSolution'        # ← YOUR SCHEMA NAME HERE
+          solution-name: 'MyTestSolution'
           solution-output-file: ./exported/solution.zip
           managed: false
 
@@ -29,7 +29,7 @@ jobs:
         uses: microsoft/powerplatform-actions/unpack-solution@v1
         with:
           solution-file: ./exported/solution.zip
-          solution-folder: ./solutions/MyTestSolution   # ← SAME NAME HERE
+          solution-folder: ./solutions/MyTestSolution
           solution-type: Unmanaged
           overwrite-files: true
 
@@ -38,40 +38,102 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
           git add ./solutions/
-          git commit -m "Exported solution: MyTestSolution"  # ← AND HERE
+          git commit -m "Exported solution: MyTestSolution"
           git push
 ```
 
 ---
 
-## 📊 Which Approach Should You Use?
+## 🔑 Before Running — Check Your 3 Secrets
+
+Your YAML uses these secret names:
 ```
-┌─────────────────────┬────────────────────────────────────┐
-│  Approach           │  Best For                          │
-├─────────────────────┼────────────────────────────────────┤
-│  Type name manually │  Multiple solutions in one repo    │
-│                     │  Different solutions each time     │
-├─────────────────────┼────────────────────────────────────┤
-│  Hardcode the name  │  One solution per repo ✅           │
-│                     │  Simpler, no mistakes when typing  │
-└─────────────────────┴────────────────────────────────────┘
+PP_CLIENT_ID
+PP_CLIENT_SECRET  
+PP_TENANT_ID
+```
+
+Make sure they are added in GitHub with EXACT same names:
+```
+1. Go to your GitHub repo
+2. Click Settings
+3. Click "Secrets and variables" → Actions
+4. You should see these 3:
+
+┌──────────────────────────────┐
+│  Repository secrets          │
+├──────────────────────────────┤
+│  ✅ PP_CLIENT_ID             │
+│  ✅ PP_CLIENT_SECRET         │
+│  ✅ PP_TENANT_ID             │
+└──────────────────────────────┘
+
+If any are missing → Click "New repository secret" and add them
 ```
 
 ---
 
-## 🎯 Summary
-```
-The workflow finds your solution because:
+## ▶️ How to See and Click "Run Workflow"
 
-YOU provide the Schema Name
-        ↓
-Either by TYPING it when running workflow
-        OR
-HARDCODING it directly in the yml file
-        ↓
-GitHub Actions passes that name to Power Platform
-        ↓
-Power Platform searches its solutions list
-and finds the exact match
-        ↓
-Exports it! ✅
+After saving the file:
+```
+Step 1: Click "Actions" tab
+
+Step 2: Look at LEFT side panel
+┌──────────────────────────────────┐
+│  All workflows                   │
+│                                  │
+│  Export Solution from  ← CLICK   │
+│  Power Platform          THIS    │
+└──────────────────────────────────┘
+
+Step 3: After clicking, look at RIGHT side
+┌─────────────────────────────────────────────────────┐
+│  Export Solution from Power Platform                │
+│                                                     │
+│  This workflow has a workflow_dispatch trigger      │
+│                                                     │
+│                          [ Run workflow ▼ ] ← HERE │
+└─────────────────────────────────────────────────────┘
+
+Step 4: Click "Run workflow"
+┌──────────────────────────────┐
+│  Use workflow from           │
+│  Branch: main          ▼     │
+│                              │
+│  [ Run workflow ]  ← CLICK   │
+└──────────────────────────────┘
+```
+
+---
+
+## ⚠️ Also Check This — Solution Schema Name
+
+Make sure `MyTestSolution` is the correct schema name:
+```
+1. Go to make.powerapps.com
+2. Click Solutions
+3. Find your solution
+4. Click the "..." → Edit
+
+Check the "Name" field:
+┌─────────────────────────────────┐
+│  Display Name: My Test Solution │
+│  Name:         MyTestSolution   │ ← must match EXACTLY
+└─────────────────────────────────┘
+```
+
+---
+
+## 🎯 Everything at a Glance
+```
+✅ Your environment URL looks correct
+   https://orgd10acd81.crm.dynamics.com
+
+✅ Your secret names look correct
+   PP_CLIENT_ID / PP_CLIENT_SECRET / PP_TENANT_ID
+
+⚠️ Just make sure:
+   1. Secrets are actually added in GitHub Settings
+   2. MyTestSolution schema name is correct
+   3. App User is added in Power Platform Admin Center
