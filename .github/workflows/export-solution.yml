@@ -40,7 +40,50 @@ jobs:
           git add ./solutions/
           git commit -m "Exported solution: MyTestSolution"
           git push
-⚠️ Just make sure:
-   1. Secrets are actually added in GitHub Settings
-   2. MyTestSolution schema name is correct
-   3. App User is added in Power Platform Admin Center
+```
+
+---
+
+## Save It
+```
+1. Scroll down to the bottom of the page
+2. You will see:
+
+┌─────────────────────────────────────────┐
+│  Commit changes                         │
+├─────────────────────────────────────────┤
+│  Commit message:                        │
+│  [ Clean workflow file            ]     │
+│                                         │
+│  ● Commit directly to main branch       │
+│                                         │
+│  [ Commit changes ]  ← CLICK THIS      │
+└─────────────────────────────────────────┘
+
+3. Click "Commit changes"
+4. Click "Commit changes" again on popup
+```
+
+---
+
+## Now Run the Workflow
+```
+1. Click "Actions" tab
+2. Click your workflow on the LEFT
+3. Click "Run workflow" on the RIGHT
+4. Click green "Run workflow" button
+```
+
+---
+
+## What to Expect
+```
+If secrets and App User are set up correctly:
+✅ Checkout Repository
+✅ Install Power Platform Tools
+✅ Export Solution from Dev Environment
+✅ Unpack Solution into Files
+✅ Commit Solution to GitHub
+
+If still failing → share the new error screenshot
+and I will fix it immediately! 😊
