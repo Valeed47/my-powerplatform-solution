@@ -14,19 +14,12 @@ jobs:
       - name: Install Power Platform Tools
         uses: microsoft/powerplatform-actions/actions-install@v1
 
-      - name: Pack Unmanaged Solution
-        uses: microsoft/powerplatform-actions/pack-solution@v1
-        with:
-          solution-folder: ./solutions/MyTestSolution
-          solution-file: ./out/MyTestSolution_unmanaged.zip
-          solution-type: Unmanaged
-
-      - name: Convert to Managed Solution
+      - name: Pack Solution as Managed
         uses: microsoft/powerplatform-actions/pack-solution@v1
         with:
           solution-folder: ./solutions/MyTestSolution
           solution-file: ./out/MyTestSolution_managed.zip
-          solution-type: Both
+          solution-type: Managed
 
       - name: Deploy Managed Solution to Target
         uses: microsoft/powerplatform-actions/import-solution@v1
