@@ -1,1 +1,33 @@
-jobs
+name: Deploy Solution to Target Environment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Power Platform Tools
+        uses: microsoft/powerplatform-actions/actions-install@v1
+
+      - name: Pack Solution Files into ZIP
+        uses: microsoft/powerplatform-actions/pack-solution@v1
+        with:
+          solution-folder: ./solutions/MyTestSolution
+          solution-file: ./out/MyTestSolution.zip
+          solution-type: Managed
+
+      - name: Deploy Solution to Target Environment
+        uses: microsoft/powerplatform-actions/import-solution@v1
+        with:
+          environment-url: ${{ secrets.TPP_ENV_URL }}
+          app-id: ${{ secrets.TPP_CLIENT_ID }}
+          client-secret: ${{ secrets.TPP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.TPP_TENANT_ID }}
+          solution-file: ./out/MyTestSolution.zip
+          force-overwrite: true
+          publish-changes: true
