@@ -19,7 +19,7 @@ jobs:
         with:
           solution-folder: ./solutions/MyTestSolution
           solution-file: ./out/MyTestSolution.zip
-          solution-type: Managed
+          solution-type: Unmanaged
 
       - name: Deploy Solution to Target Environment
         uses: microsoft/powerplatform-actions/import-solution@v1
