@@ -40,7 +40,6 @@ jobs:
           git add ./solutions/
           git commit -m "Exported solution: MyTestSolution"
           git push
-
 ⚠️ Just make sure:
    1. Secrets are actually added in GitHub Settings
    2. MyTestSolution schema name is correct
