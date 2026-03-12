@@ -14,13 +14,6 @@ jobs:
       - name: Install Power Platform Tools
         uses: microsoft/powerplatform-actions/actions-install@v1
 
-      - name: Pack Solution as Managed
-        uses: microsoft/powerplatform-actions/pack-solution@v1
-        with:
-          solution-folder: ./solutions/MyTestSolution
-          solution-file: ./out/MyTestSolution_managed.zip
-          solution-type: Managed
-
       - name: Deploy Managed Solution to Target
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
@@ -28,6 +21,6 @@ jobs:
           app-id: ${{ secrets.TPP_CLIENT_ID }}
           client-secret: ${{ secrets.TPP_CLIENT_SECRET }}
           tenant-id: ${{ secrets.TPP_TENANT_ID }}
-          solution-file: ./out/MyTestSolution_managed.zip
+          solution-file: ./exported/solution_managed.zip
           force-overwrite: true
           publish-changes: true
